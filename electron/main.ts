@@ -51,6 +51,22 @@ function createWindow() {
   win.on('maximize', () => win?.webContents.send('window:maximize-changed', true))
   win.on('unmaximize', () => win?.webContents.send('window:maximize-changed', false))
 
+  // Zoom support: Chromium handles Ctrl+= and Ctrl+- natively, but NOT Ctrl++ (Shift+=)
+  // which is the conventional zoom-in key on most keyboards. Handle all cases explicitly.
+  win.webContents.on('before-input-event', (_e, input) => {
+    if (!input.control || input.meta || input.alt) return
+    if (input.type !== 'keyDown') return
+    const wc = win?.webContents
+    if (!wc) return
+    if (input.key === '=' || input.key === '+') {
+      wc.setZoomFactor(Math.min(wc.getZoomFactor() + 0.1, 3.0))
+    } else if (input.key === '-' || input.key === '_') {
+      wc.setZoomFactor(Math.max(wc.getZoomFactor() - 0.1, 0.25))
+    } else if (input.key === '0') {
+      wc.setZoomFactor(1.0)
+    }
+  })
+
   win.on('closed', () => { win = null })
 }
 

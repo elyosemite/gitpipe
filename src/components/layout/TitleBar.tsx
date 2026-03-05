@@ -5,11 +5,12 @@ import { Button } from '@/components/ui/Button'
 import { Tooltip } from '@/components/ui/Tooltip'
 import { cn } from '@/lib/utils'
 
-// Detect if running inside Electron
-const isElectron = typeof window !== 'undefined' && !!window.electronAPI
-const isMac = isElectron && window.electronAPI!.app.platform === 'darwin'
-
 export function TitleBar() {
+  // Evaluate inside the component so React always reads the current value
+  // (module-level constants can be frozen before Electron's preload injects window.electronAPI)
+  const isElectron = typeof window !== 'undefined' && !!window.electronAPI
+  const isMac = isElectron && window.electronAPI!.app.platform === 'darwin'
+
   const { theme, setTheme, activeProject, setCommandPaletteOpen } = useApp()
   const [isMaximized, setIsMaximized] = useState(false)
 
