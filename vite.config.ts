@@ -38,8 +38,9 @@ export default defineConfig({
                   rollupOptions: {
                     external: ['electron'],
                     output: {
-                      // Force .js extension so main.ts can reference 'preload.js' reliably
-                      entryFileNames: '[name].js',
+                      // .cjs extension tells Node.js this is CommonJS even when
+                      // package.json has "type":"module", so require() works in the preload
+                      entryFileNames: '[name].cjs',
                       format: 'cjs',
                     },
                   },

@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { mockFileDiff } from '@/data/mock'
 import { cn } from '@/lib/utils'
 import { FileCode, Plus, Minus } from 'lucide-react'
@@ -58,8 +59,8 @@ export function DiffViewer({ diff = mockFileDiff }: DiffViewerProps) {
         <table className="w-full border-collapse">
           <tbody>
             {diff.hunks.map((hunk, hunkIdx) => (
-              <>
-                <tr key={`hunk-${hunkIdx}`} className="bg-primary/5 border-y border-border/30">
+              <Fragment key={`hunk-${hunkIdx}`}>
+                <tr className="bg-primary/5 border-y border-border/30">
                   <td colSpan={4} className="px-4 py-1 text-[11px] font-mono text-primary/70 italic">
                     {hunk.header}
                   </td>
@@ -67,7 +68,7 @@ export function DiffViewer({ diff = mockFileDiff }: DiffViewerProps) {
                 {hunk.lines.map((line, lineIdx) => (
                   <DiffLineRow key={`${hunkIdx}-${lineIdx}`} line={line} />
                 ))}
-              </>
+              </Fragment>
             ))}
           </tbody>
         </table>
