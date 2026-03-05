@@ -36,8 +36,10 @@ export function TitleBar() {
 
   return (
     <header
-      className="h-11 flex items-center px-3 gap-2 border-b border-border bg-card shrink-0 select-none"
-      style={isElectron ? { WebkitAppRegion: 'drag' } as React.CSSProperties : undefined}
+      className={cn(
+        'h-11 flex items-center px-3 gap-2 border-b border-border bg-card shrink-0 select-none',
+        isElectron && 'drag-region'
+      )}
     >
       {/* macOS: leave space for traffic lights (they overlay the left ~80px) */}
       {isElectron && isMac && <div className="w-20 shrink-0" />}
@@ -53,11 +55,11 @@ export function TitleBar() {
       {/* Current repo + branch pill */}
       {activeProject && (
         <button
-          style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
           className={cn(
             'flex items-center gap-1.5 h-7 px-2.5 rounded-md text-xs font-medium',
             'bg-secondary hover:bg-secondary/70 text-foreground transition-colors',
-            'border border-border/50'
+            'border border-border/50',
+            isElectron && 'no-drag'
           )}
         >
           <GitBranch size={12} className="text-accent shrink-0" />
@@ -71,11 +73,11 @@ export function TitleBar() {
       {/* Search / Command palette */}
       <button
         onClick={() => setCommandPaletteOpen(true)}
-        style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
         className={cn(
           'flex items-center gap-2 flex-1 max-w-xs h-7 px-2.5 rounded-md text-xs',
           'bg-secondary/50 hover:bg-secondary border border-border/50',
-          'text-muted-foreground transition-colors'
+          'text-muted-foreground transition-colors',
+          isElectron && 'no-drag'
         )}
       >
         <Search size={12} />
@@ -84,10 +86,7 @@ export function TitleBar() {
       </button>
 
       {/* Right actions — all need no-drag so they're clickable */}
-      <div
-        className="ml-auto flex items-center gap-0.5"
-        style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
-      >
+      <div className={cn('ml-auto flex items-center gap-0.5', isElectron && 'no-drag')}>
         <Tooltip content="Notifications">
           <Button variant="ghost" size="icon" className="relative">
             <Bell size={14} />
