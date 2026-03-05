@@ -1,0 +1,55 @@
+appId: com.gtbeholder.app
+productName: GtBeholder
+copyright: Copyright © 2026 GtBeholder
+
+# Application entry point (compiled Electron main process)
+main: dist-electron/main.js
+
+directories:
+  output: release
+  buildResources: build-resources
+
+# Files to include in the package
+files:
+  - dist/**/*          # Vite renderer build
+  - dist-electron/**/* # Compiled Electron main + preload
+  - node_modules/simple-git/**/*
+  - node_modules/**/*
+  - "!node_modules/.pnpm"
+
+# Windows
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  icon: public/icon.ico
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  installerIcon: public/icon.ico
+  uninstallerIcon: public/icon.ico
+
+# macOS
+mac:
+  target:
+    - target: dmg
+      arch: [x64, arm64]
+  icon: public/icon.icns
+  category: public.app-category.developer-tools
+  darkModeSupport: true
+
+# Linux
+linux:
+  target:
+    - AppImage
+    - deb
+  icon: public/icon.png
+  category: Development
+
+# Auto-update (configure with your own server)
+publish:
+  provider: github
+  releaseType: release
