@@ -1,0 +1,136 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@layer base {
+  :root {
+    /* Light Mode */
+    --background: 210 17% 98%;
+    --foreground: 220 14% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 14% 14%;
+    --border: 210 18% 87%;
+    --input: 210 18% 87%;
+    --ring: 212 92% 45%;
+    --primary: 212 92% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 17% 93%;
+    --secondary-foreground: 220 14% 14%;
+    --accent: 172 100% 48%;
+    --accent-foreground: 220 14% 14%;
+    --muted: 210 17% 93%;
+    --muted-foreground: 220 9% 46%;
+    --success: 142 52% 41%;
+    --success-foreground: 0 0% 100%;
+    --destructive: 0 84% 47%;
+    --destructive-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 220 14% 14%;
+    --radius: 0.5rem;
+
+    color-scheme: light;
+  }
+
+  .dark {
+    /* Dark Mode */
+    --background: 222 23% 6%;
+    --foreground: 210 33% 93%;
+    --card: 215 21% 11%;
+    --card-foreground: 210 33% 93%;
+    --border: 214 11% 22%;
+    --input: 214 11% 22%;
+    --ring: 172 100% 48%;
+    --primary: 172 100% 48%;
+    --primary-foreground: 222 23% 6%;
+    --secondary: 215 21% 15%;
+    --secondary-foreground: 210 33% 93%;
+    --accent: 212 92% 45%;
+    --accent-foreground: 0 0% 100%;
+    --muted: 215 21% 15%;
+    --muted-foreground: 210 14% 53%;
+    --success: 131 57% 34%;
+    --success-foreground: 0 0% 100%;
+    --destructive: 1 71% 56%;
+    --destructive-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 23% 6%;
+
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    margin: 0;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  #root {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+
+  /* Font smoothing */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
