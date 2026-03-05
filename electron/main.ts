@@ -1,7 +1,11 @@
 import { app, BrowserWindow, ipcMain, dialog, shell } from 'electron'
 import * as path from 'path'
+import { fileURLToPath } from 'url'
 import * as git from './git'
 import * as repos from './repos'
+
+// ESM does not have __dirname — reconstruct it from import.meta.url
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const isDev = !app.isPackaged
 

@@ -8,10 +8,10 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "dev:electron": "ELECTRON=1 vite",
-    "build:electron": "tsc -b && ELECTRON=1 vite build && electron-builder",
+    "dev:electron": "cross-env ELECTRON=1 vite",
+    "build:electron": "tsc -b && cross-env ELECTRON=1 vite build && electron-builder",
     "build:electron:win": "tsc -b && cross-env ELECTRON=1 vite build && electron-builder --win",
-    "electron:preview": "cross-env ELECTRON=1 vite build && electron dist-electron/main.js"
+    "electron:preview": "tsc -b && cross-env ELECTRON=1 vite build && electron dist-electron/main.js"
   },
   "main": "dist-electron/main.js",
   "dependencies": {
